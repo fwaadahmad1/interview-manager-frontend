@@ -18,7 +18,7 @@ export default function CalendarTopBar() {
 
   return (
     <header className="flex flex-row items-center justify-between w-full">
-      <div className="flex flex-row gap-2">
+      <div className="flex flex-row items-center gap-2">
         <SidebarTrigger className="-ml-1" />
 
         <Separator orientation="vertical" className="mr-2 h-4" />
