@@ -27,6 +27,23 @@ export type DateRange = {
 export type TimeUnit = "day" | "week" | "month";
 
 /**
+ * Converts a date string into a Date object.
+ *
+ * @param dateString - The date string to convert.
+ * @param format - The format of the date string. Defaults to ISO 8601 format.
+ * @returns A Date object representing the parsed date.
+ *
+ * @throws {Error} Throws an error if the date string is invalid or cannot be parsed.
+ */
+export function parseDateString(dateString: string, format?: string): Date {
+  const parsedDate = moment(dateString, format, true);
+  if (!parsedDate.isValid()) {
+    throw new Error(`Invalid date string: ${dateString}`);
+  }
+  return parsedDate.toDate();
+}
+
+/**
  * Returns the number of days in a given month of a specific year.
  *
  * @param monthIndex - The index of the month (0 for January, 11 for December).
@@ -52,21 +69,22 @@ export function getMonthIndexForDate(date: Date = new Date()): number {
 }
 
 /**
- * Returns a matrix representing the days of the month for a given month index and year.
- * Each sub-array represents a week, and each element in the sub-array represents a day.
+ * Generates a matrix of dates representing the weeks of a given month.
+ * Each sub-array in the matrix represents a week, starting from Sunday.
+ * The matrix includes leading days from the previous month and trailing days from the next month to fill the weeks.
  *
  * @param monthIndex - The index of the month (0 for January, 11 for December).
- * @param year - The year for which to get the days matrix. Defaults to the current year.
- * @returns A matrix of days for the specified month and year.
+ * @param year - The year for which the days matrix is generated. Defaults to the current year.
+ * @returns A 2D array of Date objects, where each sub-array represents a week.
  */
 export function getDaysMatrix(
   monthIndex: number,
   year: number = new Date().getFullYear(),
-): number[][] {
+): Date[][] {
   const daysInMonth = getDaysInMonth(monthIndex, year);
   const firstDayOfMonth = moment({ year, month: monthIndex, day: 1 }).day();
-  const weeks: number[][] = [];
-  let currentWeek: number[] = [];
+  const weeks: Date[][] = [];
+  let currentWeek: Date[] = [];
 
   // Fill the first week with leading days from the last month
   const previousMonthIndex = monthIndex === 0 ? 11 : monthIndex - 1;
@@ -77,12 +95,17 @@ export function getDaysMatrix(
   );
 
   for (let i = firstDayOfMonth - 1; i >= 0; i--) {
-    currentWeek.push(daysInPreviousMonth - i);
+    const prevMonthDate = moment({
+      year: previousMonthYear,
+      month: previousMonthIndex,
+      day: daysInPreviousMonth - i,
+    }).toDate();
+    currentWeek.push(prevMonthDate);
   }
 
   // Fill the days of the month
   for (let day = 1; day <= daysInMonth; day++) {
-    currentWeek.push(day);
+    currentWeek.push(moment({ year, month: monthIndex, day }).toDate());
     if (currentWeek.length === 7) {
       weeks.push(currentWeek);
       currentWeek = [];
@@ -92,7 +115,10 @@ export function getDaysMatrix(
   // Fill the last week with trailing days from the next month
   let nextMonthDay = 1;
   while (currentWeek.length > 0 && currentWeek.length < 7) {
-    currentWeek.push(nextMonthDay++);
+    currentWeek.push(
+      moment({ year, month: monthIndex + 1, day: nextMonthDay }).toDate(),
+    );
+    nextMonthDay++;
   }
   if (currentWeek.length > 0) {
     weeks.push(currentWeek);

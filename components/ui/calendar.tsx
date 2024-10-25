@@ -20,11 +20,11 @@ function Calendar({
   selectedDate,
   ...props
 }: CalendarProps) {
-  console.log(selectedDate);
   return (
     <DayPicker
       showOutsideDays={showOutsideDays}
       className={cn("p-3", className)}
+      month={selectedDate instanceof Date ? selectedDate : selectedDate.from}
       modifiers={{
         selected: selectedDate,
         ...(selectedDate && "from" in selectedDate

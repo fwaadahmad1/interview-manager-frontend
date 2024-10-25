@@ -15,6 +15,7 @@ interface CalendarState {
 }
 
 interface CalendarActions {
+  today: () => void;
   onDateChange: (date: Date) => void;
   setView: (view: TimeUnit) => void;
   nextView: () => void;
@@ -32,6 +33,17 @@ export const DefaultCalendatState: CalendarState = {
 export const useCalendarStore = create<CalendarState & CalendarActions>()(
   immer((set) => ({
     ...DefaultCalendatState,
+    today: () =>
+      set((state) => {
+        if (state.view === "day") {
+          state.selectedDate = new Date();
+          return;
+        }
+        state.selectedDate = { 
+          from: getStartOfPeriod(new Date(), state.view),
+          to: getEndOfPeriod(new Date(), state.view),
+        };
+      }),
     onDateChange: (date) =>
       set((state) => {
         if (state.view === "week") {

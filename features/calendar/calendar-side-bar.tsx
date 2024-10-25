@@ -1,3 +1,4 @@
+'use client';
 import { Plus } from "lucide-react";
 import * as React from "react";
 
@@ -15,13 +16,14 @@ import {
   SidebarSeparator,
 } from "@/components/ui/sidebar";
 import DatePicker from "./date-picker";
+import Select from "@/components/ui/select";
 
 export function CalendarSidebar({
   ...props
 }: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar {...props}>
-      <SidebarHeader className="border-sidebar-border h-16 border-b">
+      <SidebarHeader className="h-16 border-b border-sidebar-border">
         <SidebarMenu className="h-full">
           <SidebarMenuItem className="h-full">
             <SidebarMenuButton className="h-full">
@@ -35,6 +37,18 @@ export function CalendarSidebar({
         <SidebarGroup className="px-0">
           <SidebarGroupContent>
             <DatePicker />
+          </SidebarGroupContent>
+        </SidebarGroup>
+
+        <SidebarGroup className="px-0">
+          <SidebarGroupContent>
+            <Select
+              options={[]}
+              value={""}
+              onChange={(val) => {}}
+              open={false}
+              setOpen={(open) => {}}
+            />
           </SidebarGroupContent>
         </SidebarGroup>
         <SidebarSeparator className="mx-0" />
