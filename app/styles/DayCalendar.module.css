@@ -1,86 +1,90 @@
 /* DayCalendar.module.css */
 
 .container {
-    display: flex;
-    flex-direction: column;
-    padding: 20px;
-    gap: 20px;
-  }
-  
-  .header {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    margin-bottom: 20px;
-  }
-  
-  .day {
-    font-size: 2rem;
-    font-weight: bold;
-  }
-  
-  .date {
-    font-size: 1.5rem;
-    margin-top: 5px;
-  }
-  
-  .timezone {
-    font-size: 1rem;
-    color: #555;
-    margin-top: 5px;
-  }
-  .dayCalendar {
-    display: flex;
-    position: relative;
-    height: 80rem;
-    overflow: hidden; /* Hide the overflow to show scrollbar */
-  }
-  
-  .hours {
-    width: 5%; 
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .hour {
-    height: 60px; /* Increased height for thicker time slots */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-bottom: 1px solid #ccc;
-  }
-  
-  .events {
-    flex: 1;
-    position: relative;
-    overflow-y: auto; /* Enable vertical scrolling */
-    height: 100%; /* Take full height */
-  }
-  
-  .event {
-    position: absolute;
-    width: calc(100% - 20px); /* Ensure there's padding */
-    margin-left: 1rem; /* Adjust margin for alignment */
-    background-color: #ffa500;
-    color: white;
-    border-radius: 4px;
-    cursor: pointer;
-    overflow: hidden; /* Prevent content overflow */
-    display: flex; /* Flexbox for better alignment */
-    flex-direction: column; /* Stack header and content */
-    justify-content:left /* Center content vertically */
-  }
-  
-  .cardDescription {
-    white-space: nowrap; /* Prevent line breaks */
-    overflow: hidden; /* Hide overflowing content */
-    text-overflow: ellipsis; /* Add ellipsis for overflowing text */
-  }
-  
-  .currentTimeIndicator {
-    position: absolute;
-    height: 2px;
-    width: 100%;
-    background-color: red;
-  }
-  
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  gap: 20px;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 20px;
+}
+
+.day {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.date {
+  font-size: 1.5rem;
+  margin-top: 5px;
+}
+
+.timezone {
+  font-size: 1rem;
+  color: #555;
+  margin-top: 5px;
+}
+
+.dayCalendar {
+  display: flex;
+  position: relative;
+  height: 80rem;
+  overflow: hidden;
+}
+
+.hours {
+  width: 5%;
+  display: flex;
+  flex-direction: column;
+}
+
+.hour {
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid #ccc;
+}
+
+.events {
+  flex: 1;
+  position: relative;
+  overflow-y: auto;
+  height: 100%;
+}
+
+.event {
+  position: absolute;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  justify-content: center; 
+  align-items: center;     
+  padding: 2px;            
+  text-align: center; 
+  width: fit-content;
+  max-width: 100%;
+}
+
+
+.cardDescription {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.currentTimeIndicator {
+  position: absolute;
+  height: 2px;
+  width: 100%;
+  background-color: red;
+}
