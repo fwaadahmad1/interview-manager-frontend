@@ -59,11 +59,15 @@ const DayCalendar: React.FC = () => {
     const lastAssignedColors: { [time: string]: string } = {};
 
     return (
+        
         <div className={styles.container}>
             <div className={styles.header}>
-                {/* Header content */}
-            </div>
-  
+            <div className={styles.day}>{format(currentDate, 'EEEE')}</div>
+          <div className={styles.date}>{format(currentDate, 'MMMM d, yyyy')}</div>
+          <div className={styles.timezone}>{getGMTOffset()}</div>
+        </div>
+
+      
             <div className={styles.dayCalendar}>
                 <div className={styles.hours}>
                     {Array.from({ length: 24 }).map((_, index) => (
@@ -129,7 +133,7 @@ const DayCalendar: React.FC = () => {
                                     }}
                                 >
                                     <CardHeader>
-                                        <CardTitle>{('Interview with ' + interview.interviewee?.name || 'Interview')}</CardTitle>
+                                        <CardTitle className='text-sm'>{('Interview with ' + interview.interviewee?.name || 'Interview')}</CardTitle>
                                     </CardHeader>
                                     {/* <CardContent>
                                         <CardDescription className={styles.cardDescription}>
