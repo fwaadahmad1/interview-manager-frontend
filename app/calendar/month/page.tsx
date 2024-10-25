@@ -1,5 +1,4 @@
-import Month from "@/components/Month/Month";
-import React from "react";
+import Month from "@/features/calendar/month/month";
 
 export default function CalendarMonth() {
   return <Month />;
