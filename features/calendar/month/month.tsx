@@ -9,6 +9,7 @@ import { useCalendarApiStore } from "@/stores/useCalendarApiStore";
 import { useCalendarStore } from "@/stores/useCalendarStore";
 import { Fragment, useEffect, useMemo } from "react";
 import Day from "./day";
+import useGlobalStore from "@/stores/useGlobalStore";
 
 export interface IMonth {
   className?: React.ComponentProps<"div">["className"];
@@ -18,11 +19,13 @@ export default function Month({ className }: IMonth) {
   const { events, fetchEvents } = useCalendarApiStore();
   const { selectedDate } = useCalendarStore();
 
+  const { currentUser, token } = useGlobalStore();
+
+  console.log(currentUser, token);
+
   useEffect(() => {
     fetchEvents();
   }, [fetchEvents]);
-
-  console.log("~~~~~", events);
 
   const daysMatrix = useMemo(() => {
     return getDaysMatrix(

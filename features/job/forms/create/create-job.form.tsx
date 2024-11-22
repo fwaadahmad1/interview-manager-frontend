@@ -86,7 +86,6 @@ export default function CreateJobForm({
   }, [fetchJobs]);
 
   async function onSubmit(values: z.infer<typeof CreateJobFormSchema>) {
-
     if (!form.formState.isDirty) {
       onSuccess && onSuccess(job);
       return;
@@ -136,14 +135,14 @@ export default function CreateJobForm({
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
         <div>
           <h2 className="text-lg font-semibold text-foreground">
-            Choose a Job
+            Choose a Role
           </h2>
           <FormField
             control={form.control}
             name="id"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Job</FormLabel>
+                <FormLabel>Role</FormLabel>
                 <FormControl>
                   <Select
                     className="w-full"
@@ -155,7 +154,7 @@ export default function CreateJobForm({
                     onChange={field.onChange}
                     open={jobDropdownOpen}
                     setOpen={setJobDropdownOpen}
-                    placeholder="Job"
+                    placeholder="Role"
                     loading={jobLoading}
                     searchable={true}
                     asyncSearchCallback={setDebounceJobSearch}
@@ -176,14 +175,14 @@ export default function CreateJobForm({
         </span>
 
         <div>
-          <h2 className="text-lg font-semibold text-foreground">Create Job</h2>
+          <h2 className="text-lg font-semibold text-foreground">Create Role</h2>
 
           <FormField
             control={form.control}
             name="title"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Job Title</FormLabel>
+                <FormLabel>Role Title</FormLabel>
                 <FormControl>
                   <Input
                     placeholder="e.g. Senior Frontend Developer"
@@ -192,7 +191,7 @@ export default function CreateJobForm({
                   />
                 </FormControl>
                 <FormDescription>
-                  A clear and concise title that describes the job.
+                  A clear and concise title that describes the Role.
                 </FormDescription>
                 <FormMessage />
               </FormItem>
@@ -208,19 +207,23 @@ export default function CreateJobForm({
               <FormControl>
                 <Textarea
                   className={"min-h-72"}
-                  placeholder="Enter job description"
+                  placeholder="Enter role description"
                   {...field}
                   disabled={!!jobId}
                 />
               </FormControl>
               <FormDescription>
-                A detailed description of the job responsibilities.
+                A detailed description of the role responsibilities.
               </FormDescription>
               <FormMessage />
             </FormItem>
           )}
         />
-        <Button type="submit">Next</Button>
+        <div className="flex justify-end">
+          <Button type="submit" className="">
+            Next
+          </Button>
+        </div>
       </form>
     </Form>
   );
