@@ -6,6 +6,10 @@
 .pnp.js
 .yarn/install-state.
 
+# IDE
+.idea
+.vscode
+
 # env files
 .env
 

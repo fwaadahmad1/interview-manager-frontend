@@ -2,6 +2,19 @@
 import { Plus } from "lucide-react";
 import * as React from "react";
 
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetDescription,
+  SheetFooter,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 import {
   Sidebar,
   SidebarContent,
@@ -17,6 +30,7 @@ import {
 } from "@/components/ui/sidebar";
 import CalendarSidebarFilter from "./calendar-side-bar-filter";
 import DatePicker from "./date-picker";
+import CreateInterviewEventSheet from "./create-interview-event-sheet";
 
 export function CalendarSidebar({
   ...props
@@ -26,10 +40,7 @@ export function CalendarSidebar({
       <SidebarHeader className="h-16 border-b border-sidebar-border">
         <SidebarMenu className="h-full">
           <SidebarMenuItem className="h-full">
-            <SidebarMenuButton className="h-full">
-              <Plus />
-              <span>New Event</span>
-            </SidebarMenuButton>
+            <CreateInterviewEventSheet />
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>

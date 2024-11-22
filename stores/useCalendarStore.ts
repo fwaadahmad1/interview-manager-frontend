@@ -12,6 +12,7 @@ import { immer } from "zustand/middleware/immer";
 interface CalendarState {
   view: TimeUnit;
   selectedDate: Date | DateRange;
+  isSummaryModalOpen: boolean;
 }
 
 interface CalendarActions {
@@ -20,6 +21,7 @@ interface CalendarActions {
   setView: (view: TimeUnit) => void;
   nextView: () => void;
   previousView: () => void;
+  toggleSummaryModal: (open?: boolean) => void;
 }
 
 export const DefaultCalendatState: CalendarState = {
@@ -28,6 +30,7 @@ export const DefaultCalendatState: CalendarState = {
     from: getStartOfPeriod(new Date(), "month"),
     to: getEndOfPeriod(new Date(), "month"),
   },
+  isSummaryModalOpen: false,
 };
 
 export const useCalendarStore = create<CalendarState & CalendarActions>()(
@@ -39,7 +42,7 @@ export const useCalendarStore = create<CalendarState & CalendarActions>()(
           state.selectedDate = new Date();
           return;
         }
-        state.selectedDate = { 
+        state.selectedDate = {
           from: getStartOfPeriod(new Date(), state.view),
           to: getEndOfPeriod(new Date(), state.view),
         };
@@ -92,6 +95,14 @@ export const useCalendarStore = create<CalendarState & CalendarActions>()(
             from: addPeriodToDate(state.selectedDate.from, -1, state.view),
             to: addPeriodToDate(state.selectedDate.to, -1, state.view),
           };
+        }
+      }),
+    toggleSummaryModal: (open) =>
+      set((state) => {
+        if (open === undefined) {
+          state.isSummaryModalOpen = !state.isSummaryModalOpen;
+        } else {
+          state.isSummaryModalOpen = open;
         }
       }),
   })),

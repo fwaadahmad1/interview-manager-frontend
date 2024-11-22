@@ -1,6 +1,13 @@
+"use client";
 import { formatDate, parseDateString } from "@/lib/dateTimeUtils";
 import { cn } from "@/lib/utils";
 import { Interview } from "../models/interview";
+import { useCalendarStore } from "@/stores/useCalendarStore";
+import {
+  InterviewSummaryModal,
+  InterviewSummaryModalContainer,
+  InterviewSummaryModalTrigger,
+} from "../interview-summary-modal";
 
 export interface IDay {
   value: Date;
@@ -12,6 +19,8 @@ export interface IDay {
 const EVENTS_PER_DAY = 3;
 
 export default function Day({ value, className, showDay, events }: IDay) {
+  const { isSummaryModalOpen, toggleSummaryModal } = useCalendarStore();
+
   function isInCurrentMonth() {
     return value.getMonth() === new Date().getMonth();
   }
@@ -37,18 +46,21 @@ export default function Day({ value, className, showDay, events }: IDay) {
         </p>
       </header>
       <div className="flex cursor-pointer flex-col gap-0.5">
-        {events?.slice(0, EVENTS_PER_DAY).map((evt, idx) => (
-          <div
-            key={idx}
-            // onClick={() => setSelectedEvent(evt)}
-            className={
-              "flex flex-row items-center truncate rounded px-2 py-1 text-xs"
-            }
-          >
-            <div className={`mr-1 h-2 w-2 rounded-full bg-slate-600`} />
-            {formatDate(parseDateString(evt.date_time), "hh:mma")}{" "}
-            {evt.job?.title ?? "Interview"}
-          </div>
+        {events?.slice(0, EVENTS_PER_DAY).map((evt) => (
+          <InterviewSummaryModalContainer key={`${evt.id}`}>
+            <InterviewSummaryModalTrigger>
+              <div
+                className={
+                  "flex flex-row items-center truncate rounded px-2 py-1 text-xs"
+                }
+              >
+                <div className={`mr-1 h-2 w-2 rounded-full bg-slate-600`} />
+                {formatDate(parseDateString(evt.date_time), "hh:mma")}{" "}
+                {evt.job?.title ?? "Interview"}
+              </div>
+            </InterviewSummaryModalTrigger>
+            <InterviewSummaryModal interview={evt} />
+          </InterviewSummaryModalContainer>
         ))}
         {events && events.length > EVENTS_PER_DAY && (
           <div className="flex flex-row items-center truncate rounded px-2 py-1 text-xs">
