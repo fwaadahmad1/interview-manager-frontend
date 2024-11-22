@@ -29,6 +29,7 @@ import { CreateInterviewRequest } from "../../models/request/create-interview.re
 import SearchRequest from "../../models/request/search.request";
 import { CreateInterviewFormSchema } from "./create-interview.schema";
 import { parseDateString } from "@/lib/dateTimeUtils";
+import { useCalendarApiStore } from "@/stores/useCalendarApiStore";
 
 export interface ICreateInterviewForm {
   onSuccess?: (interview: Interview) => void;
@@ -45,6 +46,8 @@ export default function CreateInterviewForm({
   interview,
   mode = "create",
 }: ICreateInterviewForm) {
+  const { fetchEvents } = useCalendarApiStore();
+
   const form = useForm<z.infer<typeof CreateInterviewFormSchema>>({
     resolver: zodResolver(CreateInterviewFormSchema),
     defaultValues: {
@@ -64,7 +67,7 @@ export default function CreateInterviewForm({
     let url = "/interviews/";
 
     if (mode === "edit") {
-      if (!form.formState.isDirty) {
+      if (Object.keys(form.formState.dirtyFields).length === 0) {
         if (onSuccess) onSuccess(interview!);
         return;
       }
@@ -73,14 +76,24 @@ export default function CreateInterviewForm({
 
     const promise = new Promise(async (resolve, reject) => {
       try {
-        const response = await ApiClient.post<
-          CreateInterviewRequest,
-          { message: string; interview: Interview }
-        >(url, {
-          ...values,
-          date_time: values.date_time.toISOString(),
-        });
+        const response =
+          mode === "edit"
+            ? await ApiClient.put<
+                CreateInterviewRequest,
+                { message: string; interview: Interview }
+              >(url, {
+                ...values,
+                date_time: values.date_time.toISOString(),
+              })
+            : await ApiClient.post<
+                CreateInterviewRequest,
+                { message: string; interview: Interview }
+              >(url, {
+                ...values,
+                date_time: values.date_time.toISOString(),
+              });
         resolve(response.data.interview);
+        fetchEvents();
         if (onSuccess) onSuccess(response.data.interview);
       } catch (error) {
         reject(error);

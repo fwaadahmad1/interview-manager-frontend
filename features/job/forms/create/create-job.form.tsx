@@ -219,11 +219,9 @@ export default function CreateJobForm({
             </FormItem>
           )}
         />
-        <div className="flex justify-end">
-          <Button type="submit" className="">
-            Next
-          </Button>
-        </div>
+        <Button type="submit" className="">
+          Next
+        </Button>
       </form>
     </Form>
   );
