@@ -7,12 +7,14 @@ import { immer } from "zustand/middleware/immer";
 import { useCalendarStore } from "./useCalendarStore";
 
 interface CalendarApiState {
+  query?: Partial<FilteredEventsRequest>;
   events: Interview[];
   loading: boolean;
   error: string | null;
 }
 
 interface CalendarApiActions {
+  setQuery: (query: Partial<FilteredEventsRequest>) => void;
   setEvents: (events: Interview[]) => void;
   toggleLoading: (loading?: boolean) => void;
   setError: (error: string | null) => void;
@@ -28,9 +30,10 @@ export const DefaultCalendarApiState: CalendarApiState = {
 export const useCalendarApiStore = create<
   CalendarApiState & CalendarApiActions
 >()(
-  immer((set) => ({
+  immer((set, get) => ({
     ...DefaultCalendarApiState,
     setEvents: (events) => set((state) => (state.events = events)),
+    setQuery: (query) => set({ query }),
     toggleLoading: (loading) =>
       set((state) => (state.loading = loading ?? !state.loading)),
     setError: (error) => set((state) => (state.error = error)),
@@ -53,6 +56,7 @@ export const useCalendarApiStore = create<
         >("/interviews/filteredInterview", {
           from: from?.toISOString(),
           to: to?.toISOString(),
+          ...get().query,
         });
         set((state) => {
           state.events = response.data.interviews;

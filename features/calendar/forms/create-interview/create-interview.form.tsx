@@ -26,9 +26,10 @@ import { Interview } from "../../models/interview";
 import { Interviewer } from "../../models/interviewer";
 import Job from "../../models/job";
 import { CreateInterviewRequest } from "../../models/request/create-interview.request";
-import InterviewersSearchRequest from "../../models/request/interviewers-search.request";
+import SearchRequest from "../../models/request/search.request";
 import { CreateInterviewFormSchema } from "./create-interview.schema";
 import { parseDateString } from "@/lib/dateTimeUtils";
+import { useCalendarApiStore } from "@/stores/useCalendarApiStore";
 
 export interface ICreateInterviewForm {
   onSuccess?: (interview: Interview) => void;
@@ -45,6 +46,8 @@ export default function CreateInterviewForm({
   interview,
   mode = "create",
 }: ICreateInterviewForm) {
+  const { fetchEvents } = useCalendarApiStore();
+
   const form = useForm<z.infer<typeof CreateInterviewFormSchema>>({
     resolver: zodResolver(CreateInterviewFormSchema),
     defaultValues: {
@@ -64,7 +67,7 @@ export default function CreateInterviewForm({
     let url = "/interviews/";
 
     if (mode === "edit") {
-      if (!form.formState.isDirty) {
+      if (Object.keys(form.formState.dirtyFields).length === 0) {
         if (onSuccess) onSuccess(interview!);
         return;
       }
@@ -73,14 +76,24 @@ export default function CreateInterviewForm({
 
     const promise = new Promise(async (resolve, reject) => {
       try {
-        const response = await ApiClient.post<
-          CreateInterviewRequest,
-          { message: string; interview: Interview }
-        >(url, {
-          ...values,
-          date_time: values.date_time.toISOString(),
-        });
+        const response =
+          mode === "edit"
+            ? await ApiClient.put<
+                CreateInterviewRequest,
+                { message: string; interview: Interview }
+              >(url, {
+                ...values,
+                date_time: values.date_time.toISOString(),
+              })
+            : await ApiClient.post<
+                CreateInterviewRequest,
+                { message: string; interview: Interview }
+              >(url, {
+                ...values,
+                date_time: values.date_time.toISOString(),
+              });
         resolve(response.data.interview);
+        fetchEvents();
         if (onSuccess) onSuccess(response.data.interview);
       } catch (error) {
         reject(error);
@@ -114,12 +127,12 @@ export default function CreateInterviewForm({
   const fetchInterviewers = React.useCallback(
     async function (input: string = "") {
       setInterviewerLoading(true);
-      const response = await ApiClient.post<
-        InterviewersSearchRequest,
-        Interviewer[]
-      >("/interviewers/search", {
-        text: input,
-      });
+      const response = await ApiClient.post<SearchRequest, Interviewer[]>(
+        "/interviewers/search",
+        {
+          text: input,
+        },
+      );
       const interviewers = response.data.filter(
         (interviewer) =>
           !interview?.interviewer?.find((i) => i.id === interviewer.id),
@@ -159,8 +172,6 @@ export default function CreateInterviewForm({
     fetchBusinessAreas();
     fetchInterviewers();
   }, [fetchInterviewers, fetchJobs]);
-
-  console.log(form.getValues());
 
   return (
     <Form {...form}>
@@ -339,7 +350,11 @@ export default function CreateInterviewForm({
             </FormItem>
           )}
         />
-        <Button type="submit">Next</Button>
+        <div className="flex justify-end">
+          <Button type="submit" className="">
+            Next
+          </Button>
+        </div>
       </form>
     </Form>
   );

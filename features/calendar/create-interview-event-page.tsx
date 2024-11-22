@@ -1,13 +1,13 @@
 "use client";
+import ApiClient from "@/lib/api/ApiClient";
 import { useCreateEventStore } from "@/stores/useCreateEventStore";
+import { useCallback, useEffect, useState } from "react";
 import CreateJobForm from "../job/forms/create/create-job.form";
 import CreateInterviewForm from "./forms/create-interview/create-interview.form";
 import CreateIntervieweeForm from "./forms/create-interviewee/create-interviewee.form";
-import Job from "./models/job";
 import { Interview } from "./models/interview";
 import Interviewee from "./models/interviewee";
-import { useCallback, useEffect, useState } from "react";
-import ApiClient from "@/lib/api/ApiClient";
+import Job from "./models/job";
 
 export default function CreateInterviewEventPage() {
   const [selectedInterview, setSelectedInterview] = useState<Interview | null>(
@@ -101,7 +101,7 @@ export default function CreateInterviewEventPage() {
       <div className="flex flex-col space-y-2 text-center sm:text-left">
         <h1 className="text-2xl font-semibold">
           {step === 1
-            ? "Choose / Create Job"
+            ? "Choose / Create Role"
             : step === 2
               ? "Create Interview"
               : step === 3
@@ -110,7 +110,7 @@ export default function CreateInterviewEventPage() {
         </h1>
         <p className="text-sm text-muted-foreground">
           {step === 1
-            ? "Search or Create a job to associate with this event."
+            ? "Search or Create a Role to associate with this event."
             : step === 2
               ? "Create an interview to associate with this event."
               : step === 3

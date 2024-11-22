@@ -1,13 +1,12 @@
 "use client";
 import { formatDate, parseDateString } from "@/lib/dateTimeUtils";
 import { cn } from "@/lib/utils";
-import { Interview } from "../models/interview";
-import { useCalendarStore } from "@/stores/useCalendarStore";
 import {
   InterviewSummaryModal,
   InterviewSummaryModalContainer,
   InterviewSummaryModalTrigger,
 } from "../interview-summary-modal";
+import { Interview } from "../models/interview";
 
 export interface IDay {
   value: Date;
@@ -19,8 +18,6 @@ export interface IDay {
 const EVENTS_PER_DAY = 3;
 
 export default function Day({ value, className, showDay, events }: IDay) {
-  const { isSummaryModalOpen, toggleSummaryModal } = useCalendarStore();
-
   function isInCurrentMonth() {
     return value.getMonth() === new Date().getMonth();
   }
@@ -38,6 +35,9 @@ export default function Day({ value, className, showDay, events }: IDay) {
             className={cn(
               "",
               isInCurrentMonth() ? "font-semibold" : "text-muted-foreground",
+              value.getDate() === new Date().getDate()
+                ? "rounded-full bg-blue-500 p-1 text-primary-foreground"
+                : "",
             )}
           >
             {value.getDate() === 1 && formatDate(value, "MMM")}{" "}
@@ -54,7 +54,14 @@ export default function Day({ value, className, showDay, events }: IDay) {
                   "flex flex-row items-center truncate rounded px-2 py-1 text-xs"
                 }
               >
-                <div className={`mr-1 h-2 w-2 rounded-full bg-slate-600`} />
+                <div
+                  className={cn(
+                    `mr-1 h-2 w-2 rounded-full`,
+                    new Date(evt.date_time) < new Date()
+                      ? "bg-slate-600"
+                      : "bg-green-600",
+                  )}
+                />
                 {formatDate(parseDateString(evt.date_time), "hh:mma")}{" "}
                 {evt.job?.title ?? "Interview"}
               </div>
