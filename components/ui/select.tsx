@@ -19,6 +19,10 @@ export interface ISelect {
   setOpen: (open: boolean) => void;
   placeholder?: string;
   searchable?: boolean;
+  asyncSearchCallback?: (input: string) => void;
+  loading?: boolean;
+  className?: React.HTMLAttributes<HTMLButtonElement>["className"];
+  disabled?: boolean;
 }
 
 export default function Select({
@@ -29,6 +33,10 @@ export default function Select({
   setOpen,
   placeholder,
   searchable = false,
+  asyncSearchCallback,
+  loading = false,
+  className,
+  disabled,
 }: ISelect) {
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -37,13 +45,17 @@ export default function Select({
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="flex justify-between overflow-hidden text-ellipsis"
+          className={cn(
+            "flex justify-between overflow-hidden text-ellipsis",
+            className,
+          )}
+          disabled={disabled}
         >
           <span className="overflow-hidden text-ellipsis">
             {value
               ? options.find((opt) => opt.value === value)?.label
               : placeholder
-                ? placeholder
+                ? "Select " + placeholder
                 : "Select..."}
           </span>
           <ChevronDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
@@ -53,8 +65,15 @@ export default function Select({
         <Command>
           {searchable && (
             <>
-              <CommandInput placeholder={`Search ${placeholder}...`} />
-              <CommandEmpty>No {placeholder} found.</CommandEmpty>
+              <CommandInput
+                placeholder={`Search ${placeholder}...`}
+                onValueChange={(e) => {
+                  asyncSearchCallback?.(e);
+                }}
+              />
+              <CommandEmpty>
+                {loading ? "Loading..." : `No ${placeholder} found.`}
+              </CommandEmpty>
             </>
           )}
           <CommandList>

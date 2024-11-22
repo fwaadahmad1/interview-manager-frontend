@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import { getLocale, getMessages } from "next-intl/server";
 import { NextIntlClientProvider } from "next-intl";
+import { Toaster } from "@/components/ui/sonner";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -35,6 +36,7 @@ export default async function RootLayout({
       >
         <NextIntlClientProvider messages={translations}>
           {children}
+          <Toaster richColors theme="light" />
         </NextIntlClientProvider>
       </body>
     </html>

@@ -16,17 +16,23 @@ interface CalendarState {
 
 interface CalendarActions {
   today: () => void;
-  onDateChange: (date: Date) => void;
+  onDateChange: (date: Date | DateRange) => void;
   setView: (view: TimeUnit) => void;
   nextView: () => void;
   previousView: () => void;
 }
 
+const getDefaultViewFromUrl = (): TimeUnit => {
+  const path = window.location.pathname.split("/");
+  const view = path[path.length - 1] as TimeUnit;
+  return view || "month";
+};
+
 export const DefaultCalendatState: CalendarState = {
-  view: "month",
+  view: getDefaultViewFromUrl(),
   selectedDate: {
-    from: getStartOfPeriod(new Date(), "month"),
-    to: getEndOfPeriod(new Date(), "month"),
+    from: getStartOfPeriod(new Date(), getDefaultViewFromUrl()),
+    to: getEndOfPeriod(new Date(), getDefaultViewFromUrl()),
   },
 };
 
@@ -36,10 +42,13 @@ export const useCalendarStore = create<CalendarState & CalendarActions>()(
     today: () =>
       set((state) => {
         if (state.view === "day") {
-          state.selectedDate = new Date();
+          state.selectedDate = {
+            from: getStartOfPeriod(new Date(), "day"),
+            to: getEndOfPeriod(new Date(), "day"),
+          };
           return;
         }
-        state.selectedDate = { 
+        state.selectedDate = {
           from: getStartOfPeriod(new Date(), state.view),
           to: getEndOfPeriod(new Date(), state.view),
         };

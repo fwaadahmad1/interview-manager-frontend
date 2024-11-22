@@ -5,18 +5,27 @@ import {
   parseDateString,
 } from "@/lib/dateTimeUtils";
 import { cn } from "@/lib/utils";
+import { useCalendarApiStore } from "@/stores/useCalendarApiStore";
 import { useCalendarStore } from "@/stores/useCalendarStore";
-import { Fragment, useMemo } from "react";
+import { Fragment, useEffect, useMemo } from "react";
 import Day from "./day";
-import useCalendarApi from "../hooks/useCalendarApi";
+import useGlobalStore from "@/stores/useGlobalStore";
 
 export interface IMonth {
   className?: React.ComponentProps<"div">["className"];
 }
 
 export default function Month({ className }: IMonth) {
-  const { events } = useCalendarApi();
+  const { events, fetchEvents } = useCalendarApiStore();
   const { selectedDate } = useCalendarStore();
+
+  const { currentUser, token } = useGlobalStore();
+
+  console.log(currentUser, token);
+
+  useEffect(() => {
+    fetchEvents();
+  }, [fetchEvents]);
 
   const daysMatrix = useMemo(() => {
     return getDaysMatrix(
@@ -27,7 +36,7 @@ export default function Month({ className }: IMonth) {
   }, [selectedDate]);
 
   function getEventsForDay(day: Date) {
-    return events.filter((evt) => {
+    return events?.filter((evt) => {
       const evtDate = parseDateString(evt.date_time);
       return (
         evtDate.getDate() === day.getDate() &&

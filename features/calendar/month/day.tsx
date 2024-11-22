@@ -1,5 +1,11 @@
+"use client";
 import { formatDate, parseDateString } from "@/lib/dateTimeUtils";
 import { cn } from "@/lib/utils";
+import {
+  InterviewSummaryModal,
+  InterviewSummaryModalContainer,
+  InterviewSummaryModalTrigger,
+} from "../interview-summary-modal";
 import { Interview } from "../models/interview";
 
 export interface IDay {
@@ -29,6 +35,9 @@ export default function Day({ value, className, showDay, events }: IDay) {
             className={cn(
               "",
               isInCurrentMonth() ? "font-semibold" : "text-muted-foreground",
+              value.getDate() === new Date().getDate()
+                ? "rounded-full bg-blue-500 p-1 text-primary-foreground"
+                : "",
             )}
           >
             {value.getDate() === 1 && formatDate(value, "MMM")}{" "}
@@ -37,18 +46,28 @@ export default function Day({ value, className, showDay, events }: IDay) {
         </p>
       </header>
       <div className="flex cursor-pointer flex-col gap-0.5">
-        {events?.slice(0, EVENTS_PER_DAY).map((evt, idx) => (
-          <div
-            key={idx}
-            // onClick={() => setSelectedEvent(evt)}
-            className={
-              "flex flex-row items-center truncate rounded px-2 py-1 text-xs"
-            }
-          >
-            <div className={`mr-1 h-2 w-2 rounded-full bg-slate-600`} />
-            {formatDate(parseDateString(evt.date_time), "hh:mma")}{" "}
-            {evt.job?.title ?? "Interview"}
-          </div>
+        {events?.slice(0, EVENTS_PER_DAY).map((evt) => (
+          <InterviewSummaryModalContainer key={`${evt.id}`}>
+            <InterviewSummaryModalTrigger>
+              <div
+                className={
+                  "flex flex-row items-center truncate rounded px-2 py-1 text-xs"
+                }
+              >
+                <div
+                  className={cn(
+                    `mr-1 h-2 w-2 rounded-full`,
+                    new Date(evt.date_time) < new Date()
+                      ? "bg-slate-600"
+                      : "bg-green-600",
+                  )}
+                />
+                {formatDate(parseDateString(evt.date_time), "hh:mma")}{" "}
+                {evt.job?.title ?? "Interview"}
+              </div>
+            </InterviewSummaryModalTrigger>
+            <InterviewSummaryModal interview={evt} />
+          </InterviewSummaryModalContainer>
         ))}
         {events && events.length > EVENTS_PER_DAY && (
           <div className="flex flex-row items-center truncate rounded px-2 py-1 text-xs">

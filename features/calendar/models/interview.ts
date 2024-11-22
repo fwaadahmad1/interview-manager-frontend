@@ -8,6 +8,7 @@ export interface Interview {
   interviewer: Interviewer[];
   business_area?: BusinessArea;
   job?: Job;
+  tags?: string[];
   date_time: string; // ISO string representation of the date
   duration?: number;
   location?: string;

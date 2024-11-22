@@ -6,11 +6,15 @@ import { DateRange, DayPicker } from "react-day-picker";
 
 import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
-import { isDateInRange } from "@/lib/dateTimeUtils";
+import {
+  getEndOfPeriod,
+  getStartOfPeriod,
+  isDateInRange,
+} from "@/lib/dateTimeUtils";
 
 export type CalendarProps = React.ComponentProps<typeof DayPicker> & {
   selectedDate: Date | DateRange;
-  onDateChange?: (date: Date) => void;
+  onDateChange?: (date: Date | DateRange) => void;
 };
 
 function Calendar({
@@ -38,7 +42,12 @@ function Calendar({
             }
           : {}),
       }}
-      onDayClick={(day) => props.onDateChange?.(day)}
+      onDayClick={(day) =>
+        props.onDateChange?.({
+          from: getStartOfPeriod(day, "day"),
+          to: getEndOfPeriod(day, "day"),
+        })
+      }
       classNames={{
         months: "flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0",
         month: "space-y-4",

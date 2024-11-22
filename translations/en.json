@@ -1,5 +1,34 @@
 {
+  "common": {
+    "save": "Save",
+    "cancel": "Cancel"
+  },
   "HomePage": {
     "title": "Hello world!"
+  },
+  "forms": {
+    "title": "Forms",
+    "job": {
+      "title": "Job",
+      "create": {
+        "title": "Create Job",
+        "fields": {
+          "title": {
+            "label": "Job Title",
+            "placeholder": "e.g. Software Engineer",
+            "required": "Job Title is required",
+            "minLength": "Job Title must be at least {minLength} characters long",
+            "description": "A clear and concise title for the job"
+          },
+          "description": {
+            "label": "Job Description",
+            "placeholder": "e.g. We are looking for a Software Engineer to join our team",
+            "required": "Job Description is required",
+            "minLength": "Job Description must be at least {minLength} characters long",
+            "description": "A detailed description of the job"
+          }
+        }
+      }
+    }
   }
 }

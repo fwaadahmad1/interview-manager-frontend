@@ -24,7 +24,7 @@ export type DateRange = {
  * @remarks
  * This type can be used to specify a time unit for various date and time operations.
  */
-export type TimeUnit = "day" | "week" | "month";
+export type TimeUnit = "second" | "minute" | "hour" | "day" | "week" | "month";
 
 /**
  * Converts a date string into a Date object.
