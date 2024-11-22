@@ -34,6 +34,21 @@ class ApiClient {
   ): Promise<AxiosResponse<Response>> {
     return this.axiosInstance.post<Response>(url, data, config);
   }
+
+  async put<Request, Response>(
+    url: string,
+    data: Request,
+    config?: AxiosRequestConfig,
+  ): Promise<AxiosResponse<Response>> {
+    return this.axiosInstance.put<Response>(url, data, config);
+  }
+
+  async delete<Response>(
+    url: string,
+    config?: AxiosRequestConfig,
+  ): Promise<AxiosResponse<Response>> {
+    return this.axiosInstance.delete<Response>(url, config);
+  }
 }
 
 export default ApiClient.getInstance();
