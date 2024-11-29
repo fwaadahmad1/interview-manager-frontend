@@ -76,6 +76,14 @@ export default function Login() {
         >
           Login
         </button>
+        <div className="text-center mt-4">
+        <button
+          className="text-sm text-blue-500 underline hover:text-blue-700 transition-colors duration-300"
+          onClick={() => router.push("/register")}
+        >
+          New user? Sign up here
+        </button>
+    </div>
       </form>
     </div>
   );

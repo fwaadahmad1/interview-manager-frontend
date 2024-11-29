@@ -140,6 +140,16 @@ export default function Register() {
         >
           Register
         </button>
+        <div className="text-center mt-4">
+        <button
+          className="text-sm text-blue-500 underline hover:text-blue-700 transition-colors duration-300"
+          onClick={() => router.push("/login")}
+        >
+        
+          Already have an account? Login here
+        </button>
+        </div>
+
       </form>
     </div>
   );
