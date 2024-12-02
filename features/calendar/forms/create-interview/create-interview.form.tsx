@@ -351,7 +351,10 @@ export default function CreateInterviewForm({
           )}
         />
         <div className="flex justify-end">
-          <Button type="submit" className="">
+          <Button type="submit"  className={`${
+    form.formState.isValid ? "bg-secondary opacity-80 text-white hover:bg-secondary hover:opacity-100 " : "bg-gray-500 text-gray-300"
+  }`}
+  disabled={!form.formState.isValid}>
             Next
           </Button>
         </div>

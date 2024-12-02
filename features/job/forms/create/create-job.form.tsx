@@ -134,7 +134,7 @@ export default function CreateJobForm({
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
         <div>
-          <h2 className="text-lg font-semibold text-foreground">
+          <h2 className="text-lg font-semibold text-secondary">
             Choose a Role
           </h2>
           <FormField
@@ -142,7 +142,6 @@ export default function CreateJobForm({
             name="id"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Role</FormLabel>
                 <FormControl>
                   <Select
                     className="w-full"
@@ -175,14 +174,14 @@ export default function CreateJobForm({
         </span>
 
         <div>
-          <h2 className="text-lg font-semibold text-foreground">Create Role</h2>
+          <h2 className="text-lg font-semibold text-secondary">Create Role</h2>
 
           <FormField
             control={form.control}
             name="title"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Role Title</FormLabel>
+                <FormLabel>Title</FormLabel>
                 <FormControl>
                   <Input
                     placeholder="e.g. Senior Frontend Developer"
@@ -219,9 +218,15 @@ export default function CreateJobForm({
             </FormItem>
           )}
         />
-        <Button type="submit" className="">
+                <div className="flex justify-end">
+
+        <Button type="submit"  className={`${
+    form.formState.isValid ? "bg-secondary opacity-80 text-white hover:bg-secondary hover:opacity-100 " : "bg-gray-500 text-gray-300"
+  }`}
+  disabled={!form.formState.isValid}>
           Next
         </Button>
+        </div>
       </form>
     </Form>
   );

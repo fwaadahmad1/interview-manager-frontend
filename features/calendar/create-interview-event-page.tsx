@@ -97,9 +97,9 @@ export default function CreateInterviewEventPage() {
   }
 
   return (
-    <div className="flex h-full flex-col gap-8 overflow-scroll p-8 scrollbar-hide">
+    <div className="flex h-full flex-col gap-8 overflow-scroll p-8 scrollbar-hide bg-[url('/images/rocket-logo.png')] bg-center bg-no-repeat bg-cover bg-opacity-90">
       <div className="flex flex-col space-y-2 text-center sm:text-left">
-        <h1 className="text-2xl font-semibold">
+        <h1 className="text-2xl font-semibold text-secondary">
           {step === 1
             ? "Choose / Create Role"
             : step === 2
