@@ -16,8 +16,11 @@ body {
   :root {
     --background: 0 0% 100%;
     --foreground: 0 0% 3.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 3.9%;
+    --gradient-start: 350, 84%, 31%;
+    --primary-gradient: linear-gradient(to bottom, var(--gradient-start), transparent);
+    --card: 220 50% 95%;
+    --card-foreground: 220 15% 20%;
+    --radius: 0.5rem;
     --popover: 0 0% 100%;
     --popover-foreground: 0 0% 3.9%;
     --primary: 0 0% 9%;
@@ -39,7 +42,7 @@ body {
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
     --radius: 0.5rem;
-    --sidebar-background: 0 0% 98%;
+    --sidebar-background: var(--primary-gradient);
     --sidebar-foreground: 240 5.3% 26.1%;
     --sidebar-primary: 240 5.9% 10%;
     --sidebar-primary-foreground: 0 0% 98%;
@@ -85,10 +88,10 @@ body {
 }
 
 @layer base {
+  body {
+    @apply bg-gradient-to-br from-gradientStart to-transparent text-foreground;
+  }
   * {
     @apply border-border;
-  }
-  body {
-    @apply bg-background text-foreground;
   }
 }

@@ -13,7 +13,7 @@ export default function CreateInterviewEventSheet() {
   return (
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger asChild>
-        <SidebarMenuButton className="h-full">
+        <SidebarMenuButton className="h-full text-white hover:text-black">
           <Plus />
           <span>New Event</span>
         </SidebarMenuButton>
