@@ -72,10 +72,18 @@ export default function Login() {
 
         <button
           type="submit"
-          className="mb-2 me-2 w-full rounded-lg bg-gradient-to-br from-green-400 to-blue-600 px-5 py-2.5 py-3 text-center text-sm font-bold font-medium text-white hover:bg-gradient-to-bl focus:outline-none focus:ring-4 focus:ring-green-200 dark:focus:ring-green-800"
+          className="mb-2 me-2 w-full rounded-lg bg-gradient-to-br from-green-400 to-blue-600 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-gradient-to-bl focus:outline-none focus:ring-4 focus:ring-green-200 dark:focus:ring-green-800"
         >
           Login
         </button>
+        <div className="text-center mt-4">
+        <button
+          className="text-sm text-blue-500 underline hover:text-blue-700 transition-colors duration-300"
+          onClick={() => router.push("/register")}
+        >
+          New user? Sign up here
+        </button>
+    </div>
       </form>
     </div>
   );

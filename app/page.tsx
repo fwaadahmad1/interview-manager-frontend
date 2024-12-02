@@ -1,9 +1,9 @@
-import DayCalendar from "@/features/day/day";
+import Login from "@/features/login/login";
 
 export default function Home() {
   return (
     <div className="min-h-screen w-full">
-      <DayCalendar/>
+      <Login/>
     </div>
   );
 }
