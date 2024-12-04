@@ -114,9 +114,19 @@ export function getDaysMatrix(
 
   // Fill the last week with trailing days from the next month
   let nextMonthDay = 1;
+  let nextMonthIndex = monthIndex + 1;
+  let nextMonthYear = year;
+  if (nextMonthIndex === 12) {
+    nextMonthIndex = 0;
+    nextMonthYear++;
+  }
   while (currentWeek.length > 0 && currentWeek.length < 7) {
     currentWeek.push(
-      moment({ year, month: monthIndex + 1, day: nextMonthDay }).toDate(),
+      moment({
+        year: nextMonthYear,
+        month: nextMonthIndex,
+        day: nextMonthDay,
+      }).toDate(),
     );
     nextMonthDay++;
   }

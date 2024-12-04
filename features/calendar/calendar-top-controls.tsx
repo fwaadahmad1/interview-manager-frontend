@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import {
   Breadcrumb,
   BreadcrumbList,
@@ -15,21 +15,25 @@ export default function CalendarTopControls() {
 
   return (
     <>
-      <Button variant="outline" onClick={today}>
+      <Button
+        variant="ghost"
+        onClick={today}
+        className="rounded-full border border-primary text-white hover:bg-red-500/40 hover:text-white"
+      >
         Today
       </Button>
 
-      <div>
+      <div className="text-white">
         <Button
           variant="ghost"
-          className="aspect-square w-8 rounded-full p-0"
+          className="aspect-square w-8 rounded-full p-0 hover:bg-red-500/40 hover:text-white"
           onClick={previousView}
         >
           <ChevronLeft />
         </Button>
         <Button
           variant="ghost"
-          className="aspect-square w-8 rounded-full p-0"
+          className="aspect-square w-8 rounded-full p-0 hover:bg-red-500/40 hover:text-white"
           onClick={nextView}
         >
           <ChevronRight />
@@ -39,7 +43,7 @@ export default function CalendarTopControls() {
       <Breadcrumb>
         <BreadcrumbList>
           <BreadcrumbItem>
-            <BreadcrumbPage className="text-lg">
+            <BreadcrumbPage className="text-lg text-white">
               {selectedDate instanceof Date
                 ? formatDate(selectedDate, "DD MMMM yyyy")
                 : formatDateRange(selectedDate)}

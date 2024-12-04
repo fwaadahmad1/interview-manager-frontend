@@ -7,8 +7,6 @@ import { format } from "date-fns";
 export default function CalendarDay() {
   const { selectedDate } = useCalendarStore();
 
-  console.log(selectedDate);
-
   if (selectedDate instanceof Date || !selectedDate?.from) {
     return null;
   }

@@ -86,7 +86,7 @@ export default function CreateJobForm({
   }, [fetchJobs]);
 
   async function onSubmit(values: z.infer<typeof CreateJobFormSchema>) {
-    if (!form.formState.isDirty) {
+    if (Object.keys(form.formState.dirtyFields).length === 0) {
       onSuccess && onSuccess(job);
       return;
     }
@@ -218,14 +218,18 @@ export default function CreateJobForm({
             </FormItem>
           )}
         />
-                <div className="flex justify-end">
-
-        <Button type="submit"  className={`${
-    form.formState.isValid ? "bg-secondary opacity-80 text-white hover:bg-secondary hover:opacity-100 " : "bg-gray-500 text-gray-300"
-  }`}
-  disabled={!form.formState.isValid}>
-          Next
-        </Button>
+        <div className="flex justify-end">
+          <Button
+            type="submit"
+            className={`${
+              form.formState.isValid
+                ? "bg-secondary text-white opacity-80 hover:bg-secondary hover:opacity-100"
+                : "bg-gray-500 text-gray-300"
+            }`}
+            disabled={!form.formState.isValid}
+          >
+            Next
+          </Button>
         </div>
       </form>
     </Form>
