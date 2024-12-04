@@ -114,7 +114,6 @@ export default function CalendarSidebarFilter() {
 
   React.useEffect(() => {
     const subscription = form.watch((value, { name, type }) => {
-      console.log("Form value changed:", value);
       setQuery({
         job: value.job || undefined,
         business_area: value.business_area || undefined,

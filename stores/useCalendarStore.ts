@@ -49,7 +49,9 @@ export const useCalendarStore = create<CalendarState & CalendarActions>()(
     onDateChange: (date) =>
       set((state) => {
         if (state.view === "week") {
-          state.selectedDate = getWeekDateRange(date);
+          state.selectedDate = getWeekDateRange(
+            date instanceof Date ? date : date.from,
+          );
           return;
         }
         state.selectedDate = date;
