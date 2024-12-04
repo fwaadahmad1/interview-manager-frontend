@@ -12,7 +12,6 @@ import {
 } from "@/lib/dateTimeUtils";
 import { cn } from "@/lib/utils";
 import { useCalendarStore } from "@/stores/useCalendarStore";
-import { set } from "date-fns";
 
 export type CalendarProps = React.ComponentProps<typeof DayPicker> & {
   selectedDate: Date | DateRange;
@@ -102,3 +101,4 @@ function Calendar({
 Calendar.displayName = "Calendar";
 
 export { Calendar };
+

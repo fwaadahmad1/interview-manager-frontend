@@ -286,16 +286,6 @@ export default function CreateInterviewForm({
                       16,
                     )} //{field.value.toISOString().slice(0, 16)}
                     onChange={(e) => {
-                      console.log(
-                        new Date(e.target.value).toISOString().slice(0, 16),
-                      );
-                      console.log(
-                        formatDate(
-                          parseDateString(e.target.value),
-                          "yyyy-MM-DD'T'HH:mm:ss",
-                        ),
-                      );
-
                       field.onChange(parseDateString(e.target.value));
                     }}
                   />

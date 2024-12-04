@@ -19,6 +19,7 @@ export default function CalendarLayout({
   useEffect(() => {
     const view = path[path.length - 1] as TimeUnit;
     setView(view || "month");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
