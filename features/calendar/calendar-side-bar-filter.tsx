@@ -134,7 +134,7 @@ export default function CalendarSidebarFilter() {
           name="job"
           render={({ field }) => (
             <FormItem className="w-full">
-              <FormLabel className="text-white">Role</FormLabel>
+              <FormLabel>Role</FormLabel>
               <FormControl>
                 <Select
                   className="w-full"
@@ -161,7 +161,7 @@ export default function CalendarSidebarFilter() {
           name="business_area"
           render={({ field }) => (
             <FormItem className="w-full">
-              <FormLabel className="text-white">Business Area</FormLabel>
+              <FormLabel>Business Area</FormLabel>
               <FormControl>
                 <Select
                   className="w-full"
@@ -186,7 +186,7 @@ export default function CalendarSidebarFilter() {
           name="interviewer"
           render={({ field }) => (
             <FormItem className="w-full">
-              <FormLabel className="text-white">Interviewer</FormLabel>
+              <FormLabel>Interviewer</FormLabel>
               <FormControl>
                 <Select
                   className="w-full"
@@ -213,7 +213,7 @@ export default function CalendarSidebarFilter() {
           name="interviewee"
           render={({ field }) => (
             <FormItem className="w-full">
-              <FormLabel className="text-white">Interviewee</FormLabel>
+              <FormLabel>Interviewee</FormLabel>
               <FormControl>
                 <Select
                   className="w-full"
