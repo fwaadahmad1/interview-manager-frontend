@@ -28,7 +28,7 @@ import Job from "../../models/job";
 import { CreateInterviewRequest } from "../../models/request/create-interview.request";
 import SearchRequest from "../../models/request/search.request";
 import { CreateInterviewFormSchema } from "./create-interview.schema";
-import { parseDateString } from "@/lib/dateTimeUtils";
+import { formatDate, parseDateString } from "@/lib/dateTimeUtils";
 import { useCalendarApiStore } from "@/stores/useCalendarApiStore";
 
 export interface ICreateInterviewForm {
@@ -281,9 +281,22 @@ export default function CreateInterviewForm({
                 <FormControl>
                   <Input
                     type="datetime-local"
-                    value={field.value.toISOString().slice(0, 16)}
+                    value={formatDate(field.value, "yyyy-MM-DDTHH:mm:ss").slice(
+                      0,
+                      16,
+                    )} //{field.value.toISOString().slice(0, 16)}
                     onChange={(e) => {
-                      field.onChange(new Date(e.target.value));
+                      console.log(
+                        new Date(e.target.value).toISOString().slice(0, 16),
+                      );
+                      console.log(
+                        formatDate(
+                          parseDateString(e.target.value),
+                          "yyyy-MM-DD'T'HH:mm:ss",
+                        ),
+                      );
+
+                      field.onChange(parseDateString(e.target.value));
                     }}
                   />
                 </FormControl>
@@ -351,10 +364,15 @@ export default function CreateInterviewForm({
           )}
         />
         <div className="flex justify-end">
-          <Button type="submit"  className={`${
-    form.formState.isValid ? "bg-secondary opacity-80 text-white hover:bg-secondary hover:opacity-100 " : "bg-gray-500 text-gray-300"
-  }`}
-  disabled={!form.formState.isValid}>
+          <Button
+            type="submit"
+            className={`${
+              form.formState.isValid
+                ? "bg-secondary text-white opacity-80 hover:bg-secondary hover:opacity-100"
+                : "bg-gray-500 text-gray-300"
+            }`}
+            disabled={!form.formState.isValid}
+          >
             Next
           </Button>
         </div>

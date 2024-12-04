@@ -23,7 +23,12 @@ export default function Day({ value, className, showDay, events }: IDay) {
   }
   return (
     <div className={cn("flex flex-col border border-gray-200", className)}>
-      <header className="flex flex-col items-center">
+      <header
+        className={cn(
+          "flex flex-col items-center",
+          isInCurrentMonth() ? "" : "bg-gray-100",
+        )}
+      >
         <p className={`my-1 p-1 text-center text-sm`}>
           {showDay && (
             <>
@@ -35,8 +40,8 @@ export default function Day({ value, className, showDay, events }: IDay) {
             className={cn(
               "",
               isInCurrentMonth() ? "font-semibold" : "text-muted-foreground",
-              value.getDate() === new Date().getDate()
-                ? "rounded-full bg-blue-500 p-1 text-primary-foreground"
+              value.getDate() === new Date().getDate() && isInCurrentMonth()
+                ? "rounded-full border border-primary p-1 text-primary"
                 : "",
             )}
           >
@@ -45,7 +50,12 @@ export default function Day({ value, className, showDay, events }: IDay) {
           </span>
         </p>
       </header>
-      <div className="flex cursor-pointer flex-col gap-0.5">
+      <div
+        className={cn(
+          "flex h-full cursor-pointer flex-col gap-0.5",
+          isInCurrentMonth() ? "" : "bg-gray-100",
+        )}
+      >
         {events?.slice(0, EVENTS_PER_DAY).map((evt) => (
           <InterviewSummaryModalContainer key={`${evt.id}`}>
             <InterviewSummaryModalTrigger>

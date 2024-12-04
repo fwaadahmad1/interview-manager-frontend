@@ -1,16 +1,18 @@
 "use client";
 
-import * as React from "react";
 import { ChevronLeftIcon, ChevronRightIcon } from "@radix-ui/react-icons";
+import * as React from "react";
 import { DateRange, DayPicker } from "react-day-picker";
 
-import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
 import {
   getEndOfPeriod,
   getStartOfPeriod,
   isDateInRange,
 } from "@/lib/dateTimeUtils";
+import { cn } from "@/lib/utils";
+import { useCalendarStore } from "@/stores/useCalendarStore";
+import { set } from "date-fns";
 
 export type CalendarProps = React.ComponentProps<typeof DayPicker> & {
   selectedDate: Date | DateRange;
@@ -24,11 +26,12 @@ function Calendar({
   selectedDate,
   ...props
 }: CalendarProps) {
+  const { setView } = useCalendarStore();
   return (
     <DayPicker
       showOutsideDays={showOutsideDays}
       className={cn("p-3", className)}
-      month={selectedDate instanceof Date ? selectedDate : selectedDate.from}
+      // month={selectedDate instanceof Date ? selectedDate : selectedDate.from}
       modifiers={{
         selected: selectedDate,
         ...(selectedDate && "from" in selectedDate
@@ -42,21 +45,22 @@ function Calendar({
             }
           : {}),
       }}
-      onDayClick={(day) =>
+      onDayClick={(day) => {
+        setView("day");
         props.onDateChange?.({
           from: getStartOfPeriod(day, "day"),
           to: getEndOfPeriod(day, "day"),
-        })
-      }
+        });
+      }}
       classNames={{
         months: "flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0",
         month: "space-y-4",
-        caption: "flex justify-center pt-1 relative items-center",
-        caption_label: "text-sm font-medium",
+        caption: "flex justify-center pt-1 relative items-center text-white",
+        caption_label: "text-sm font-medium text-white",
         nav: "space-x-1 flex items-center",
         nav_button: cn(
-          buttonVariants({ variant: "outline" }),
-          "h-7 w-7 bg-transparent p-0 opacity-50 hover:opacity-100",
+          buttonVariants({ variant: "ghost" }),
+          "h-7 w-7 bg-transparent p-0 opacity-50 hover:opacity-100 rounded-full ",
         ),
         nav_button_previous: "absolute left-1",
         nav_button_next: "absolute right-1",
@@ -83,7 +87,7 @@ function Calendar({
         day_outside: "day-outside opacity-50",
         day_disabled: "text-muted-foreground opacity-50",
         day_range_middle:
-          "aria-selected:bg-transparent aria-selected:text-accent-foreground",
+          "aria-selected:bg-transparent aria-selected:text-white",
         day_hidden: "invisible",
         ...classNames,
       }}

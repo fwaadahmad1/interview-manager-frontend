@@ -128,16 +128,16 @@ export default function CalendarSidebarFilter() {
 
   return (
     <Form {...form}>
-      <form className="flex flex-col items-start gap-4 p-4">
+      <form className="flex flex-col items-start gap-4 p-4 text-white">
         <FormField
           control={form.control}
           name="job"
           render={({ field }) => (
             <FormItem className="w-full">
-              <FormLabel className="text-white">Role</FormLabel>
+              <FormLabel>Role</FormLabel>
               <FormControl>
                 <Select
-                  className="w-full"
+                  className="w-full bg-transparent"
                   options={jobs.map((job) => ({
                     value: job.id,
                     label: job.title,
@@ -160,11 +160,11 @@ export default function CalendarSidebarFilter() {
           control={form.control}
           name="business_area"
           render={({ field }) => (
-            <FormItem className="w-full">
-              <FormLabel className="text-white">Business Area</FormLabel>
+            <FormItem className="w-full bg-transparent">
+              <FormLabel>Business Area</FormLabel>
               <FormControl>
                 <Select
-                  className="w-full"
+                  className="w-full bg-transparent"
                   options={businessAreas.map((area) => ({
                     value: area.id,
                     label: area.name,
@@ -185,11 +185,11 @@ export default function CalendarSidebarFilter() {
           control={form.control}
           name="interviewer"
           render={({ field }) => (
-            <FormItem className="w-full">
-              <FormLabel className="text-white">Interviewer</FormLabel>
+            <FormItem className="w-full bg-transparent">
+              <FormLabel>Interviewer</FormLabel>
               <FormControl>
                 <Select
-                  className="w-full"
+                  className="w-full bg-transparent"
                   options={interviewers.map((interviewer) => ({
                     value: interviewer.id,
                     label: interviewer.name,
@@ -212,11 +212,11 @@ export default function CalendarSidebarFilter() {
           control={form.control}
           name="interviewee"
           render={({ field }) => (
-            <FormItem className="w-full">
-              <FormLabel className="text-white">Interviewee</FormLabel>
+            <FormItem className="w-full bg-transparent">
+              <FormLabel>Interviewee</FormLabel>
               <FormControl>
                 <Select
-                  className="w-full"
+                  className="w-full bg-transparent"
                   options={interviewees.map((interviewee) => ({
                     value: interviewee.id,
                     label: interviewee.name,

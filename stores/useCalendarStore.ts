@@ -21,18 +21,11 @@ interface CalendarActions {
   nextView: () => void;
   previousView: () => void;
 }
-
-const getDefaultViewFromUrl = (): TimeUnit => {
-  const path = window.location.pathname.split("/");
-  const view = path[path.length - 1] as TimeUnit;
-  return view || "month";
-};
-
 export const DefaultCalendatState: CalendarState = {
-  view: getDefaultViewFromUrl(),
+  view: "month",
   selectedDate: {
-    from: getStartOfPeriod(new Date(), getDefaultViewFromUrl()),
-    to: getEndOfPeriod(new Date(), getDefaultViewFromUrl()),
+    from: getStartOfPeriod(new Date(), "month"),
+    to: getEndOfPeriod(new Date(), "month"),
   },
 };
 

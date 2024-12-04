@@ -60,7 +60,7 @@ const Day = ({
     events.forEach((event) => {
       const startTime = format(new Date(event.date_time), "HH:mm");
       if (
-        !(new Date(event.date_time).toDateString() !== dayDate.toDateString())
+        (new Date(event.date_time).toDateString() === dayDate.toDateString())
       ) {
         if (!groupedEvents[startTime]) {
           groupedEvents[startTime] = [];
