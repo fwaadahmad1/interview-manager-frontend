@@ -1,8 +1,4 @@
-import {
-  Sheet,
-  SheetContent,
-  SheetTrigger
-} from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { SidebarMenuButton } from "@/components/ui/sidebar";
 import { useCreateEventStore } from "@/stores/useCreateEventStore";
 import { Plus } from "lucide-react";
@@ -13,7 +9,10 @@ export default function CreateInterviewEventSheet() {
   return (
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger asChild>
-        <SidebarMenuButton className="h-full">
+        <SidebarMenuButton
+          variant="default"
+          className="h-full w-full rounded-2xl bg-primary px-4 text-primary-foreground hover:bg-primary/80 hover:text-white"
+        >
           <Plus />
           <span>New Event</span>
         </SidebarMenuButton>

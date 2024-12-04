@@ -8,6 +8,7 @@ import CreateIntervieweeForm from "./forms/create-interviewee/create-interviewee
 import { Interview } from "./models/interview";
 import Interviewee from "./models/interviewee";
 import Job from "./models/job";
+import Image from "next/image";
 
 export default function CreateInterviewEventPage() {
   const [selectedInterview, setSelectedInterview] = useState<Interview | null>(
@@ -97,9 +98,12 @@ export default function CreateInterviewEventPage() {
   }
 
   return (
-    <div className="flex h-full flex-col gap-8 overflow-scroll p-8 scrollbar-hide">
+    <div className="relative flex h-full flex-col gap-8 overflow-scroll p-8 scrollbar-hide">
+      <div className="absolute flex size-full items-center justify-center -z-50">
+        <Image src={"/logo.svg"} width={500} height={500} alt="" className="opacity-5 -ml-16"/>
+      </div>
       <div className="flex flex-col space-y-2 text-center sm:text-left">
-        <h1 className="text-2xl font-semibold">
+        <h1 className="text-2xl font-semibold text-secondary">
           {step === 1
             ? "Choose / Create Role"
             : step === 2

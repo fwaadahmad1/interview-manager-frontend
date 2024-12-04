@@ -10,7 +10,7 @@ export default function DatePicker() {
       mode="range"
       selectedDate={selectedDate}
       onDateChange={onDateChange}
-      className="[&_[role=gridcell].bg-accent]:bg-sidebar-primary [&_[role=gridcell].bg-accent]:text-sidebar-primary-foreground [&_[role=gridcell]]:w-[33px]"
+      className="[&_[role=gridcell].bg-accent]:bg-sidebar-primary [&_[role=gridcell].bg-accent]:text-white [&_[role=gridcell]]:w-[33px]"
     />
   );
 }

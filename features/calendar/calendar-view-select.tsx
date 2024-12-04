@@ -1,9 +1,7 @@
-"use client";
 import Select from "@/components/ui/select";
 import { TimeUnit } from "@/lib/dateTimeUtils";
 import { useCalendarStore } from "@/stores/useCalendarStore";
-import { useRouter } from "next/navigation";
-import React from "react";
+import React, { HTMLAttributes } from "react";
 
 const OPTIONS = [
   { value: "day", label: "Day" },
@@ -11,19 +9,21 @@ const OPTIONS = [
   { value: "month", label: "Month" },
 ];
 
-export default function CalendarViewSelect() {
+export default function CalendarViewSelect({
+  className,
+}: {
+  className?: HTMLAttributes<HTMLButtonElement>["className"];
+}) {
   const { view, setView } = useCalendarStore();
   const [open, setOpen] = React.useState(false);
 
-  const router = useRouter();
-
   return (
     <Select
+      className={className}
       options={OPTIONS}
       value={view}
       onChange={(value) => {
         setView(value as TimeUnit);
-        router.push(`/calendar/${value}`);
       }}
       open={open}
       setOpen={setOpen}
