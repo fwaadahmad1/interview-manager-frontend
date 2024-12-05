@@ -155,7 +155,7 @@ export default function CreateIntervieweeForm({
       );
 
       const filteredInterviewees = response.data.filter(
-        (interviewee) => interviewee.id === interviewee?.id,
+        (_interviewee) => _interviewee.id !== interviewee?.id,
       );
 
       setInterviewees([

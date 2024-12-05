@@ -73,7 +73,10 @@ export default function CreateJobForm({
           title: input,
         },
       );
-      setJobs([...response.data, ...(job ? [job] : [])]);
+      const jobRes = response.data.filter(
+        (_job) => _job.id !== (job?.id ?? ""),
+      );
+      setJobs([...(job ? [job] : []), ...jobRes]);
       setJobLoading(false);
     },
     [job],
