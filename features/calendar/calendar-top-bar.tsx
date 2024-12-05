@@ -16,9 +16,9 @@ export default function CalendarTopBar() {
         <SidebarTrigger className="-ml-1 text-white hover:bg-red-500/40 hover:text-white" />
         <Separator orientation="vertical" className="mr-2 h-4" />
         <Image
-          src={"/rocket-logo-white.svg"}
-          width={250}
-          height={40}
+          src={"/hire-vision-white.svg"}
+          width={150}
+          height={30}
           alt=""
           className="mr-4"
         />

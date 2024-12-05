@@ -29,6 +29,7 @@ import { Interview } from "../../models/interview";
 export interface ICreateIntervieweeForm {
   interviewId?: string;
   onSuccess?: (interviewee: Interviewee) => void;
+  onPrev?: () => void;
   onError?: (message: string) => void;
   interviewee?: Interviewee | null;
   mode?: "edit" | "create" | "view";
@@ -36,6 +37,7 @@ export interface ICreateIntervieweeForm {
 
 export default function CreateIntervieweeForm({
   interviewId,
+  onPrev,
   onSuccess,
   onError,
   interviewee,
@@ -276,13 +278,26 @@ export default function CreateIntervieweeForm({
             </FormItem>
           )}
         />
-                <div className="flex justify-end">
-
-        <Button type="submit"  className={`${
-    form.formState.isValid ? "bg-secondary opacity-80 text-white hover:bg-secondary hover:opacity-100 " : "bg-gray-500 text-gray-300"
-  }`}
-  disabled={!form.formState.isValid}>Submit</Button>
-  </div>
+        <div className="flex justify-between">
+          <Button
+            type="button"
+            className={`${"bg-secondary text-white opacity-80 hover:bg-secondary hover:opacity-100"}`}
+            onClick={onPrev}
+          >
+            Previous
+          </Button>
+          <Button
+            type="submit"
+            className={`${
+              form.formState.isValid
+                ? "bg-secondary text-white opacity-80 hover:bg-secondary hover:opacity-100"
+                : "bg-gray-500 text-gray-300"
+            }`}
+            disabled={!form.formState.isValid}
+          >
+            Submit
+          </Button>
+        </div>
       </form>
     </Form>
   );
