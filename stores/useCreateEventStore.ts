@@ -15,6 +15,7 @@ interface CreateEventState {
 
 interface CreateEventActions {
   setOpen: (open: boolean, interviewId?: string) => void;
+  setInterviewId: (interviewId: string) => void;
   nextStep: () => void;
   previousStep: () => void;
   setJob: (job: Job) => void;
@@ -32,10 +33,34 @@ export const useCreateEventStore = create<
 >()(
   immer((set) => ({
     ...DefaultCreateEventState,
+    // setOpen: (open, interviewId) =>
+    //   set((state) => {
+    //     state.open = open;
+    //     if (!open) {
+    //       state.step = 1;
+    //       state.interviewId = undefined;
+    //       state.job = undefined;
+    //       state.interview = undefined;
+    //       state.interviewee = undefined;
+    //     }
+    //     if (interviewId) state.interviewId = interviewId;
+    //   }),
     setOpen: (open, interviewId) =>
+      set((state) => ({
+        ...state,
+        open,
+        ...(interviewId && { interviewId }),
+        ...(!open && {
+          step: 1,
+          interviewId: undefined,
+          job: undefined,
+          interview: undefined,
+          interviewee: undefined,
+        }),
+      })),
+    setInterviewId: (interviewId) =>
       set((state) => {
-        state.open = open;
-        if (interviewId) state.interviewId = interviewId;
+        state.interviewId = interviewId;
       }),
     nextStep: () =>
       set((state) => {

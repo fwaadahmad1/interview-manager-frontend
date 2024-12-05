@@ -18,6 +18,7 @@ export default function CreateInterviewEventPage() {
   const {
     step,
     interviewId,
+    setInterviewId,
     job,
     setJob,
     interview,
@@ -25,6 +26,7 @@ export default function CreateInterviewEventPage() {
     interviewee,
     setInterviewee,
     nextStep,
+    previousStep,
     setOpen,
   } = useCreateEventStore();
 
@@ -62,8 +64,10 @@ export default function CreateInterviewEventPage() {
         return (
           <CreateInterviewForm
             jobId={job?.id}
+            onPrev={() => previousStep()}
             onSuccess={function (interview: Interview): void {
               setInterview(interview);
+              setInterviewId(interview.id);
               nextStep();
             }}
             onError={function (message: string): void {
@@ -79,8 +83,8 @@ export default function CreateInterviewEventPage() {
         return (
           <CreateIntervieweeForm
             interviewId={interview?.id}
-            onSuccess={function (interviewee: Interviewee): void {
-              setInterviewee(interviewee);
+            onPrev={() => previousStep()}
+            onSuccess={function (): void {
               setOpen(false);
             }}
             onError={function (message: string): void {
@@ -99,8 +103,14 @@ export default function CreateInterviewEventPage() {
 
   return (
     <div className="relative flex h-full flex-col gap-8 overflow-scroll p-8 scrollbar-hide">
-      <div className="absolute flex size-full items-center justify-center -z-50">
-        <Image src={"/logo.svg"} width={500} height={500} alt="" className="opacity-5 -ml-16"/>
+      <div className="absolute -z-50 flex size-full items-center justify-center">
+        <Image
+          src={"/logo.svg"}
+          width={500}
+          height={500}
+          alt=""
+          className="-ml-16 opacity-5"
+        />
       </div>
       <div className="flex flex-col space-y-2 text-center sm:text-left">
         <h1 className="text-2xl font-semibold text-secondary">

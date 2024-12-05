@@ -32,6 +32,7 @@ import { formatDate, parseDateString } from "@/lib/dateTimeUtils";
 import { useCalendarApiStore } from "@/stores/useCalendarApiStore";
 
 export interface ICreateInterviewForm {
+  onPrev?: () => void;
   onSuccess?: (interview: Interview) => void;
   onError?: (message: string) => void;
   jobId?: string;
@@ -40,6 +41,7 @@ export interface ICreateInterviewForm {
 }
 
 export default function CreateInterviewForm({
+  onPrev,
   onSuccess,
   onError,
   jobId,
@@ -353,7 +355,14 @@ export default function CreateInterviewForm({
             </FormItem>
           )}
         />
-        <div className="flex justify-end">
+        <div className="flex justify-between">
+          <Button
+            type="button"
+            className={`${"bg-secondary text-white opacity-80 hover:bg-secondary hover:opacity-100"}`}
+            onClick={onPrev}
+          >
+            Previous
+          </Button>
           <Button
             type="submit"
             className={`${
