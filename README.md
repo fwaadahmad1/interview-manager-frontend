@@ -1,4 +1,4 @@
-# Interview Manager Frontend
+![Interview Manager Logo](public/hire-vision-white.svg)
 
 ## Table of Contents
 
@@ -14,7 +14,7 @@
 
 ## Overview
 
-The Interview Manager is a sleek web application designed to manage interview scheduling and tracking. With a user-friendly interface, it allows you to effortlessly create, edit, and view interviews, interviewees, and all related information. Built with cutting-edge technologies like React, Next.js, and Tailwind CSS, this app ensures a seamless experience.
+HireVision is a sleek web application designed to manage interview scheduling and tracking. With a user-friendly interface, it allows you to effortlessly create, edit, and view interviews, interviewees, and all related information. Built with cutting-edge technologies like React, Next.js, and Tailwind CSS, this app ensures a seamless experience.
 
 ## Live Demo
 
